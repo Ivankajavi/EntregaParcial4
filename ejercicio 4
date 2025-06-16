@@ -1,1 +1,43 @@
+1- La fundación duoc UC solicita servicios profesionales para desarrollar un sistema que le permita almacenar
+los datos personales de cada uno de sus estudiantes,
+nombre apellido rut correo elec. 
+Carrera dentro de la carrera se inserta la sg lista, gastronomía, ingeniería y gastronomía, analista
+Ingenieria: desarrollo web, Móvil y desarrollo escritorio
+Analista: análisis dashboard limpieza dashboard, creación de dashboard
+Gastronomia: historia gastronomía sopaipilla alimento natural y procesado
 
+
+
+2- Realiza un programa en python que permita crear un menu de gestión de entradas para el concierto de noche de brujas. 
+
+El menu principal debe permitir mostrar 4 opciones. 
+
+Menu principal:
+Opción:
+1.-Comprar entrada
+2.-Consultar comprador 
+3.-Cancelar compra 
+4.-Continuar o salir 
+
+Todas las opciones del menú deben estar implementadas mediante funciones(Def), separadas del código principal (Main). 
+
+Descripción de las opciones
+
+1.-Se debe permitir ingresar el nombre del comprador, tipo de entrada y codigo de confirmación por separados. Para que la compra sea exitosa se debe cumplir con lo siguiente:
+a)El nombre del comprador no debe repetirse
+b)el tipo de entrada debe ser general($10.000) o VIP($50.000)
+c)el codigo de confirmación debe tener un mínimo de 6 caracteres y un número (1,2,etc) como mínimo y 0 espacios.
+
+En el caso de cumplir con todas las condiciones. La entrada de registra como exitosa. 
+
+2.-El menu me debe permitir buscar compradores mediante el nombre. Mensaje a mostrar, si el comprador existe debería mostrar estos asociados: 
+
+-Nombre usuario
+-Tipo de entrada 
+-Codigo confirmación
+
+Si no existe el usuario mostrar mensaje: comprador no existe
+
+3.-Eliminar la información del comprador o usuario. 
+
+4.-Consultarle al usuario si desea continuar o salir
