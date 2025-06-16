@@ -1,0 +1,16 @@
+INFORMACIÓN DE USUARIOS
+
+Al ingresar la opción 1: Se debe permitir ingresar el nombre del usuario, sexo y clave, por separado.,
+Para que el ingreso del usuario sea exitoso, se debe compartir lo siguiente:
+a) El nombre del usuario no debe estar repetido.
+b) El sexo del usuario debe ser definido a travé de 2 letras: F o M.
+c) La contraseña debe ser de un mínimo de 8 caracteres y al menos 1 número, sin espacios.
+En caso de cumplir todas las funciones, el mensaje a mostrar en pantalla debe ser:
+El ingreso fue exitoso.,
+Al ingresar la opción 2: El menú debe permitir buscar usuarios mediante sus nombres. Si el usuario
+existe, deben mostrarse los datos asociados al usuario, como lo son sexo y contraseña. Si el usuario
+no existe, debe mostrar un mensaje: "El usuario no se encuentra."
+Al ingresar la opción 3: El menú debe permitir borrar usuarios y toda la información asociada a este.
+Al ingresar la opción 4: Preguntar si decide continuar buscando usuarios o salir del programa.
+Si el ingreso de una opción distinta debe mostrar un mensaje que debe seleccionar una opción válida.
+Todas las opciones del menú deben estar implementadas separadas del código principal (main():)
