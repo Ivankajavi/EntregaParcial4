@@ -6,6 +6,64 @@ Ingenieria: desarrollo web, Móvil y desarrollo escritorio
 Analista: análisis dashboard limpieza dashboard, creación de dashboard
 Gastronomia: historia gastronomía sopaipilla alimento natural y procesado
 
+est = []
+
+carreras = {
+  "ingenieria": ["desarrollo web","móvil","desarrollo escritorio"],
+  "analista": ["análisis dashboard","limpieza dashboard","creación de dashboard"],
+  "gastronomia": ["historia gastronomía","sopaipilla","alimento natural y procesado"]
+}
+
+def tiene_numero(t): return any(c in "0123456789" for c in t)
+def contar(x): return sum(1 for _ in x)
+
+def agregar():
+    nom = input("Nombre: ")
+    ape = input("Apellido: ")
+    rut = input("RUT: ")
+    correo = input("Correo: ")
+    for e in est:
+        if e["rut"]==rut:
+            print("RUT ya registrado."); return
+    print("Carreras:", ", ".join(carreras.keys()))
+    c = input("Carrera: ").lower()
+    if c not in carreras:
+        print("Carrera inválida."); return
+    print("Subcarreras:", ", ".join(carreras[c]))
+    sc = input("Subcarrera: ").lower()
+    if sc not in carreras[c]:
+        print("Subcarrera inválida."); return
+    est[:] = est + [{"nombre":nom, "apellido":ape, "rut":rut, "correo":correo, "carrera":c, "subcarrera":sc}]
+    print("Estudiante agregado.")
+
+def buscar():
+    r = input("Buscar por RUT: ")
+    for e in est:
+        if e["rut"] == r:
+            print(e)
+            return
+    print("No encontrado.")
+
+def borrar():
+    r = input("Eliminar por RUT: ")
+    for i,e in enumerate(est):
+        if e["rut"] == r:
+            del est[i]
+            print("Estudiante eliminado.")
+            return
+    print("No encontrado.")
+
+def salir():
+    if input("¿Continuar? (si/no): ").lower() != "si":
+        exit()
+
+while True:
+    o = input("1-Agregar 2-Buscar 3-Borrar 4-Salir: ")
+    if o == "1": agregar()
+    elif o == "2": buscar()
+    elif o == "3": borrar()
+    elif o == "4": salir()
+    else: print("Opción inválida.")
 
 
 2- Realiza un programa en python que permita crear un menu de gestión de entradas para el concierto de noche de brujas. 
@@ -41,3 +99,75 @@ Si no existe el usuario mostrar mensaje: comprador no existe
 3.-Eliminar la información del comprador o usuario. 
 
 4.-Consultarle al usuario si desea continuar o salir
+
+lista_compradores = []
+
+def tiene_numero(texto):
+    for c in texto:
+        if c in "0123456789":
+            return True
+    return False
+
+def contar(lista):
+    c = 0
+    for _ in lista:
+        c += 1
+    return c
+
+def comprar():
+    nombre = input("Nombre: ")
+    for c in lista_compradores:
+        if c["nombre"] == nombre:
+            print("Nombre ya registrado.")
+            return
+
+    tipo = input("Tipo (general/vip): ").lower()
+    if tipo not in ("general", "vip"):
+        print("Tipo inválido.")
+        return
+
+    codigo = input("Código confirmación: ")
+    if contar(codigo) < 6 or " " in codigo or not tiene_numero(codigo):
+        print("Código inválido.")
+        return
+
+    lista_compradores[:] = lista_compradores + [{"nombre": nombre, "entrada": tipo, "codigo": codigo}]
+    print("Compra registrada.")
+
+def consultar():
+    nombre = input("Nombre a buscar: ")
+    for c in lista_compradores:
+        if c["nombre"] == nombre:
+            print("Nombre:", c["nombre"])
+            print("Tipo entrada:", c["entrada"])
+            print("Código:", c["codigo"])
+            return
+    print("Comprador no existe.")
+
+def cancelar():
+    nombre = input("Nombre a eliminar: ")
+    i = 0
+    while i < contar(lista_compradores):
+        if lista_compradores[i]["nombre"] == nombre:
+            del lista_compradores[i]
+            print("Compra cancelada.")
+            return
+        i += 1
+    print("Comprador no encontrado.")
+
+def continuar():
+    if input("¿Continuar? (si/no): ").lower() != "si":
+        print("Hasta luego.")
+        exit()
+
+def main():
+    while True:
+        print("\n1-Comprar 2-Consultar 3-Cancelar 4-Salir")
+        op = input("Opción: ")
+        if op == "1": comprar()
+        elif op == "2": consultar()
+        elif op == "3": cancelar()
+        elif op == "4": continuar()
+        else: print("Opción inválida.")
+
+main()
