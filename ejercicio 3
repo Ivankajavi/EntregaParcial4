@@ -14,3 +14,78 @@ Al ingresar la opción 3: El menú debe permitir borrar usuarios y toda la infor
 Al ingresar la opción 4: Preguntar si decide continuar buscando usuarios o salir del programa.
 Si el ingreso de una opción distinta debe mostrar un mensaje que debe seleccionar una opción válida.
 Todas las opciones del menú deben estar implementadas separadas del código principal (main():)
+
+usuarios = []
+
+def tiene_numero(texto):
+    numeros = "0123456789"
+    encontrado = False
+    for letra in texto:
+        if letra in numeros:
+            encontrado = True
+    if encontrado:
+        return True
+    else:
+        return False
+
+def agregar_usuario():
+    nombre = input("Nombre de usuario: ")
+
+    nombre_existe = False
+    for u in usuarios:
+        if u["nombre"] == nombre:
+            nombre_existe = True
+
+    if nombre_existe:
+        print("El nombre ya está en uso.")
+    else:
+        sexo = input("Sexo (F o M): ").upper()
+        if sexo != "F" and sexo != "M":
+            print("Sexo inválido.")
+        else:
+            clave = input("Contraseña: ")
+            cumple_requisitos = True
+
+            if len(clave) < 8:
+                cumple_requisitos = False
+            if " " in clave:
+                cumple_requisitos = False
+            if not tiene_numero(clave):
+                cumple_requisitos = False
+
+            if not cumple_requisitos:
+                print("Contraseña inválida. Debe tener mínimo 8 caracteres, al menos 1 número y sin espacios.")
+            else:
+                usuario = {"nombre": nombre, "sexo": sexo, "clave": clave}
+                global usuarios
+                usuarios = usuarios + [usuario]
+                print("El ingreso fue exitoso.")
+
+def mostrar_usuarios():
+    if len(usuarios) == 0:
+        print("No hay usuarios registrados.")
+    else:
+        print("\n--- Lista de usuarios ---")
+        for u in usuarios:
+            print("Nombre:", u["nombre"], "- Sexo:", u["sexo"], "- Clave:", u["clave"])
+
+def main():
+    while True:
+        print("\n--- MENÚ ---")
+        print("1. Ingresar nuevo usuario")
+        print("2. Mostrar todos los usuarios")
+        print("3. Salir")
+
+        opcion = input("Elige una opción: ")
+
+        if opcion == "1":
+            agregar_usuario()
+        elif opcion == "2":
+            mostrar_usuarios()
+        elif opcion == "3":
+            print("Programa finalizado.")
+            break
+        else:
+            print("Opción no válida.")
+
+main()
