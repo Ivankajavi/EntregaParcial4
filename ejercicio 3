@@ -15,77 +15,139 @@ Al ingresar la opción 4: Preguntar si decide continuar buscando usuarios o sali
 Si el ingreso de una opción distinta debe mostrar un mensaje que debe seleccionar una opción válida.
 Todas las opciones del menú deben estar implementadas separadas del código principal (main():)
 
-usuarios = []
 
-def tiene_numero(texto):
-    numeros = "0123456789"
-    encontrado = False
-    for letra in texto:
-        if letra in numeros:
-            encontrado = True
-    if encontrado:
-        return True
+def ingresar_usuario():
+
+  while True:
+
+    user = input("Ingrese nombre de usuario: ")
+
+    if user not in d:
+
+      break
+
     else:
-        return False
 
-def agregar_usuario():
-    nombre = input("Nombre de usuario: ")
+      print("Usuario ya existe. Intente otro.")
 
-    nombre_existe = False
-    for u in usuarios:
-        if u["nombre"] == nombre:
-            nombre_existe = True
+  while True:
 
-    if nombre_existe:
-        print("El nombre ya está en uso.")
+    sex = input("Ingrese sexo (M/F): ")
+
+    if sex == "M" or sex == "F":
+
+      break
+
     else:
-        sexo = input("Sexo (F o M): ").upper()
-        if sexo != "F" and sexo != "M":
-            print("Sexo inválido.")
-        else:
-            clave = input("Contraseña: ")
-            cumple_requisitos = True
 
-            if len(clave) < 8:
-                cumple_requisitos = False
-            if " " in clave:
-                cumple_requisitos = False
-            if not tiene_numero(clave):
-                cumple_requisitos = False
+      print("Debe ingresar M o F solamente. Intente de nuevo.")
 
-            if not cumple_requisitos:
-                print("Contraseña inválida. Debe tener mínimo 8 caracteres, al menos 1 número y sin espacios.")
-            else:
-                usuario = {"nombre": nombre, "sexo": sexo, "clave": clave}
-                global usuarios
-                usuarios = usuarios + [usuario]
-                print("El ingreso fue exitoso.")
+  while True:
 
-def mostrar_usuarios():
-    if len(usuarios) == 0:
-        print("No hay usuarios registrados.")
+    num = 0
+
+    letra = 0
+
+    passw = input("Ingrese contraseña: ")
+
+    if len(passw) >= 8 and " " not in passw:
+
+      for c in passw:
+
+        if c.isdigit():
+
+          num += 1
+
+        if c.isalpha():
+
+          letra += 1
+
+      if num > 0 and letra > 0:
+
+        print("Contraseña válida.")
+
+        d[user] = [passw, sex]
+
+        print("Usuario ingresado con éxito!!")
+
+        break # <-- Esto es lo que faltaba
+
+      else:
+
+        print("La contraseña debe tener letras y números.")
+
     else:
-        print("\n--- Lista de usuarios ---")
-        for u in usuarios:
-            print("Nombre:", u["nombre"], "- Sexo:", u["sexo"], "- Clave:", u["clave"])
 
-def main():
-    while True:
-        print("\n--- MENÚ ---")
-        print("1. Ingresar nuevo usuario")
-        print("2. Mostrar todos los usuarios")
-        print("3. Salir")
+      print("Contraseña no válida. Debe tener al menos 8 caracteres y sin espacios.")
 
-        opcion = input("Elige una opción: ")
 
-        if opcion == "1":
-            agregar_usuario()
-        elif opcion == "2":
-            mostrar_usuarios()
-        elif opcion == "3":
-            print("Programa finalizado.")
-            break
-        else:
-            print("Opción no válida.")
 
-main()
+def buscar_usuario(user):
+
+  if user in d:
+
+    print("El sexo del usuario es:", d[user][1], "y la contraseña es:", d[user][0])
+
+  else:
+
+    print("El usuario no se encuentra.")
+
+
+
+def eliminar_usuario(user):
+
+  if user in d:
+
+    del d[user]
+
+    print("Usuario eliminado correctamente.")
+
+  else:
+
+    print("No se pudo eliminar. El usuario no existe.")
+
+
+
+### MAIN
+
+d = {}
+
+while True:
+
+  print("\nMENU PRINCIPAL")
+
+  print("1.- Ingresar usuario.")
+
+  print("2.- Buscar usuario.")
+
+  print("3.- Eliminar usuario.")
+
+  print("4.- Salir.")
+
+  op = input("Ingrese opción: ")
+
+  if op == "4":
+
+    print("Programa terminado...")
+
+    break
+
+  elif op == "1":
+
+    ingresar_usuario()
+
+  elif op == "2":
+
+    usuario = input("Ingrese usuario a buscar: ")
+
+    buscar_usuario(usuario)
+
+  elif op == "3":
+
+    usuario = input("Ingrese usuario a eliminar: ")
+
+    eliminar_usuario(usuario)
+
+  else:
+
+    print("Debe ingresar una opción válida!!")
