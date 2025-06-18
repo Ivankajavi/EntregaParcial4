@@ -1,4 +1,5 @@
-1- La fundación duoc UC solicita servicios profesionales para desarrollar un sistema que le permita almacenar
+EJERCICIO 1: 
+La fundación duoc UC solicita servicios profesionales para desarrollar un sistema que le permita almacenar
 los datos personales de cada uno de sus estudiantes,
 nombre apellido rut correo elec. 
 Carrera dentro de la carrera se inserta la sg lista, gastronomía, ingeniería y gastronomía, analista
@@ -6,67 +7,41 @@ Ingenieria: desarrollo web, Móvil y desarrollo escritorio
 Analista: análisis dashboard limpieza dashboard, creación de dashboard
 Gastronomia: historia gastronomía sopaipilla alimento natural y procesado
 
-est = []
-
 carreras = {
-  "ingenieria": ["desarrollo web","móvil","desarrollo escritorio"],
-  "analista": ["análisis dashboard","limpieza dashboard","creación de dashboard"],
-  "gastronomia": ["historia gastronomía","sopaipilla","alimento natural y procesado"]
+    "Ingenieria": ["Desarrollo web", "Móvil", "Desarrollo escritorio"],
+    "Analista": ["Análisis dashboard", "Limpieza dashboard", "Creación de dashboard"],
+    "Gastronomia": ["Historia gastronomía", "Sopaipilla", "Alimento natural y procesado"]
 }
 
-def tiene_numero(t): return any(c in "0123456789" for c in t)
-def contar(x): return sum(1 for _ in x)
-
-def agregar():
-    nom = input("Nombre: ")
-    ape = input("Apellido: ")
-    rut = input("RUT: ")
+def agregar_estudiante():
+    while True:
+        rut = input("Ingrese RUT: ")
+        if rut not in estudiantes:
+            break
+        else:
+            print("RUT ya registrado. Intente otro.")
+    nombre = input("Nombre: ")
+    apellido = input("Apellido: ")
     correo = input("Correo: ")
-    for e in est:
-        if e["rut"]==rut:
-            print("RUT ya registrado."); return
-    print("Carreras:", ", ".join(carreras.keys()))
-    c = input("Carrera: ").lower()
-    if c not in carreras:
-        print("Carrera inválida."); return
-    print("Subcarreras:", ", ".join(carreras[c]))
-    sc = input("Subcarrera: ").lower()
-    if sc not in carreras[c]:
-        print("Subcarrera inválida."); return
-    est[:] = est + [{"nombre":nom, "apellido":ape, "rut":rut, "correo":correo, "carrera":c, "subcarrera":sc}]
-    print("Estudiante agregado.")
-
-def buscar():
-    r = input("Buscar por RUT: ")
-    for e in est:
-        if e["rut"] == r:
-            print(e)
-            return
-    print("No encontrado.")
-
-def borrar():
-    r = input("Eliminar por RUT: ")
-    for i,e in enumerate(est):
-        if e["rut"] == r:
-            del est[i]
-            print("Estudiante eliminado.")
-            return
-    print("No encontrado.")
-
-def salir():
-    if input("¿Continuar? (si/no): ").lower() != "si":
-        exit()
-
-while True:
-    o = input("1-Agregar 2-Buscar 3-Borrar 4-Salir: ")
-    if o == "1": agregar()
-    elif o == "2": buscar()
-    elif o == "3": borrar()
-    elif o == "4": salir()
-    else: print("Opción inválida.")
+    print("Carreras disponibles:")
+    for c in carreras:
+        print("-", c)
+    while True:
+        carrera = input("Ingrese carrera: ")
+        if carrera in carreras:
+            break
+        else:
+            print("Carrera inválida. Intente de nuevo.")
+    print("Subcarreras disponibles:")
+    for sc in carreras[carrera]:
+        print("-", sc)
+    while True:
+        subcarrera = input("Ingrese subcarrera: ")
 
 
-2- Realiza un programa en python que permita crear un menu de gestión de entradas para el concierto de noche de brujas. 
+
+EJERCICIO 2:
+Realiza un programa en python que permita crear un menu de gestión de entradas para el concierto de noche de brujas. 
 
 El menu principal debe permitir mostrar 4 opciones. 
 
@@ -100,7 +75,6 @@ Si no existe el usuario mostrar mensaje: comprador no existe
 
 4.-Consultarle al usuario si desea continuar o salir
 
-lista_compradores = []
 
 def tiene_numero(texto):
     for c in texto:
@@ -108,66 +82,67 @@ def tiene_numero(texto):
             return True
     return False
 
-def contar(lista):
-    c = 0
-    for _ in lista:
-        c += 1
-    return c
+def comprar_entrada():
+    while True:
+        nombre = input("Nombre comprador: ")
+        if nombre not in entradas:
+            break
+        else:
+            print("Nombre ya registrado. Intente otro.")
+    while True:
+        tipo = input("Tipo entrada (general/vip): ")
+        if tipo == "general" or tipo == "vip":
+            break
+        else:
+            print("Debe ingresar general o vip.")
+    while True:
+        codigo = input("Código confirmación: ")
+        if len(codigo) >= 6 and " " not in codigo and tiene_numero(codigo):
+            break
+        else:
+            print("Código no válido, debe tener mínimo 6 caracteres, un número y sin espacios.")
+    entradas[nombre] = {"tipo": tipo, "codigo": codigo}
+    print("Compra registrada exitosamente.")
 
-def comprar():
-    nombre = input("Nombre: ")
-    for c in lista_compradores:
-        if c["nombre"] == nombre:
-            print("Nombre ya registrado.")
-            return
+def consultar_comprador(nombre):
+    if nombre in entradas:
+        print("Nombre:", nombre)
+        print("Tipo entrada:", entradas[nombre]["tipo"])
+        print("Código confirmación:", entradas[nombre]["codigo"])
+    else:
+        print("Comprador no existe.")
 
-    tipo = input("Tipo (general/vip): ").lower()
-    if tipo not in ("general", "vip"):
-        print("Tipo inválido.")
-        return
+def cancelar_compra(nombre):
+    if nombre in entradas:
+        del entradas[nombre]
+        print("Compra cancelada.")
+    else:
+        print("Comprador no encontrado.")
 
-    codigo = input("Código confirmación: ")
-    if contar(codigo) < 6 or " " in codigo or not tiene_numero(codigo):
-        print("Código inválido.")
-        return
-
-    lista_compradores[:] = lista_compradores + [{"nombre": nombre, "entrada": tipo, "codigo": codigo}]
-    print("Compra registrada.")
-
-def consultar():
-    nombre = input("Nombre a buscar: ")
-    for c in lista_compradores:
-        if c["nombre"] == nombre:
-            print("Nombre:", c["nombre"])
-            print("Tipo entrada:", c["entrada"])
-            print("Código:", c["codigo"])
-            return
-    print("Comprador no existe.")
-
-def cancelar():
-    nombre = input("Nombre a eliminar: ")
-    i = 0
-    while i < contar(lista_compradores):
-        if lista_compradores[i]["nombre"] == nombre:
-            del lista_compradores[i]
-            print("Compra cancelada.")
-            return
-        i += 1
-    print("Comprador no encontrado.")
-
-def continuar():
-    if input("¿Continuar? (si/no): ").lower() != "si":
-        print("Hasta luego.")
+def salir():
+    if input("¿Desea continuar? (si/no): ") != "si":
+        print("Saliendo...")
         exit()
 
-def main():
-    while True:
-        print("\n1-Comprar 2-Consultar 3-Cancelar 4-Salir")
-        op = input("Opción: ")
-        if op == "1": comprar()
-        elif op == "2": consultar()
-        elif op == "3": cancelar()
-        elif op == "4": continuar()
-        else: print("Opción inválida.")
+entradas = {}
 
-main()
+while True:
+    print("\n--- MENU PRINCIPAL ---")
+    print("1.- Comprar entrada")
+    print("2.- Consultar comprador")
+    print("3.- Cancelar compra")
+    print("4.- Salir")
+    opcion = input("Ingrese opción: ")
+
+    if opcion == "1":
+        comprar_entrada()
+    elif opcion == "2":
+        nom = input("Ingrese nombre comprador a buscar: ")
+        consultar_comprador(nom)
+    elif opcion == "3":
+        nom = input("Ingrese nombre comprador a eliminar: ")
+        cancelar_compra(nom)
+    elif opcion == "4":
+        salir()
+    else:
+        print("Opción inválida, intente de nuevo.")
