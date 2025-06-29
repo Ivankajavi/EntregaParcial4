@@ -1,1 +1,70 @@
+lista_usuarios = []
 
+def ingresar_usuario():
+    nombre = input("Ingrese nombre de usuario: ")
+    
+    
+    for usuario in lista_usuarios:
+        if usuario["nombre"] == nombre:
+            print("error: el usuario ya existe")
+            return
+
+    sexo = input("Ingrese sexo (F/M): ")
+    if sexo != "F" and sexo != "M":
+        print("error: sexo no valido")
+        return
+
+    contraseña = input("Ingrese contraseña: ")
+    if len(contraseña) < 8:
+        print("error: La contraseña debe tener  8 caracteres")
+        return
+
+    nuevo_usuario = {
+        "nombre": nombre,
+        "sexo": sexo,
+        "contraseña": contraseña
+    }
+    lista_usuarios(nuevo_usuario)
+    print("usuario ingresado exitosamente")
+
+def buscar_usuario():
+    nombre = input("Ingrese nombre de usuario a buscar: ")
+    for usuario in lista_usuarios:
+        if usuario["nombre"] == nombre:
+            print("Usuario encontrado:")
+            print("Sexo:", usuario["sexo"])
+            print("Contraseña:", usuario["contraseña"])
+            return
+    print("El usuario no se encuentra")
+
+def eliminar_usuario():
+    nombre = input("ingrese nombre de usuario a eliminar: ")
+    for usuario in lista_usuarios:
+        if usuario["nombre"] == nombre:
+            lista_usuarios(usuario)
+            print("usuario eliminado")
+            return
+    print("no se pudo eliminar usuario")
+
+def menu():
+    while True:
+        print("MENU")
+        print("1- ingresar usuario")
+        print("2- buscar usuario")
+        print("3- eliminar usuario")
+        print("4- salir")
+        opcion = input("seleccione una opcion: ")
+
+        if opcion == "1":
+            ingresar_usuario()
+        elif opcion == "2":
+            buscar_usuario()
+        elif opcion == "3":
+            eliminar_usuario()
+        elif opcion == "4":
+            print("saliendo del programa")
+            break
+        else:
+            print("opcion invalida.")
+
+menu()
