@@ -1,0 +1,57 @@
+#zapatillas
+reservas = []
+stock = {"reservas_actuales": 0} 
+
+def reservar_zapatillas():
+    if stock["reservas_actuales"] >= 20:
+        print("Stock maximo alcanzado")
+        return
+    
+    nombre = input("Ingrese nombre del comprador: ")
+    for reserva in reservas:
+        if reserva["nombre"] == nombre:
+            print("Error: Ya existe una reserva con ese nombre.")
+            return
+
+    clave = input("Ingrese la palabra secreta para confirmar la reserva: ")
+    if clave != "Estoy en lista de reservas":
+        print("Clave incorrecta")
+        return
+
+    reservas({"nombre": nombre})
+    stock["reservas_actuales"] += 1
+    print("Reserva realizada exitosamente")
+
+def buscar_reserva():
+    nombre = input("Ingrese el nombre del comprador a buscar: ")
+    for reserva in reservas:
+        if reserva["nombre"] == nombre:
+            print("Reserva encontrada para", nombre)
+            return
+    print("No se encontró ninguna reserva con ese nombre")
+
+def ver_stock():
+    print("Reservas actuales:", stock["reservas_actuales"], "/20 disponibles.")
+
+def menu_principal():
+    while True:
+        print("TOTEM AUTOATENCION")
+        print("1- Reservar zapatillas")
+        print("2- Buscar zapatillas reservadas")
+        print("3- Ver stock de reservas")
+        print("4- Salir")
+        opcion = input("Seleccione una opcion: ")
+
+        if opcion == "1":
+            reservar_zapatillas()
+        elif opcion == "2":
+            buscar_reserva()
+        elif opcion == "3":
+            ver_stock()
+        elif opcion == "4":
+            print("saliendo del sistema de reservas")
+            break
+        else:
+            print("opcion invalida")
+
+menu_principal()
