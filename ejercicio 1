@@ -45,7 +45,7 @@ def eliminar_usuario():
     nombre = input("Ingrese nombre de usuario a eliminar: ")
     for usuario in lista_usuarios:
         if usuario["nombre"] == nombre:
-            lista_usuarios.remove(usuario)
+            lista_usuarios(usuario)
             print("usuario eliminado")
             return
     print("no se pudo eliminar usuario")
@@ -72,4 +72,5 @@ def menu():
             print("opcion inválida.")
 
 menu()
+
 
