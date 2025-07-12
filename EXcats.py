@@ -29,7 +29,7 @@ def cambiar(compradores_viernes, compradores_sabado, stock_viernes, stock_sabado
     nombre = input("Nombre del comprador: ")
 
     if nombre in compradores_viernes and stock_sabado > 0:
-        cambiar = input("¿Cambiar a sábado? (si/no): ")
+        cambiar = input("¿Cambiar a sabado? (si/no): ")
         if cambiar == "si":
             compradores_viernes(nombre)
             compradores_sabado(nombre)
@@ -39,8 +39,8 @@ def cambiar(compradores_viernes, compradores_sabado, stock_viernes, stock_sabado
     elif nombre in compradores_sabado and stock_viernes > 0:
         cambiar = input("¿Cambiar a viernes? (si/no): ")
         if cambiar == "si":
-            compradores_sabado.remove(nombre)
-            compradores_viernes.append(nombre)
+            compradores_sabado(nombre)
+            compradores_viernes(nombre)
             stock_sabado += 1
             stock_viernes -= 1
             print("Cambio realizado")
